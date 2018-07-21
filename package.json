@@ -1,0 +1,29 @@
+{
+  "name": "query-electoral-district-2016",
+  "version": "0.1.0",
+  "description": "Find electoral district of russian parliament for year 2016",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soal/query-electoral-district-2016.git"
+  },
+  "author": "sorrow.about.alice@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soal/query-electoral-district-2016/issues"
+  },
+  "homepage": "https://github.com/soal/query-electoral-district-2016#readme",
+  "devDependencies": {
+    "eslint": "^5.2.0",
+    "eslint-config-standart": "^0.2.0"
+  },
+  "dependencies": {
+    "@turf/boolean-point-in-polygon": "^6.0.1",
+    "mongoose": "^5.2.4",
+    "restify": "^7.2.1"
+  }
+}
