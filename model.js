@@ -36,13 +36,13 @@ async function createModel() {
   }
 
   const District = mongoose.model('District', districtShchema)
-  console.log('Model created')
+  // console.log('Model created')
   return District
 }
 
 async function init() {
   const db = await dbConnect()
-  console.log('DB connected!')
+  // console.log('DB connected!')
   const districtModel = await createModel()
 
   return { db, districtModel }
@@ -52,4 +52,4 @@ async function init() {
 // db.once('open', () => {
 //   console.log('DB connected!')
 // })
-// mudule.export = await init()
+mudule.export = await init()
