@@ -4,7 +4,7 @@ const createModel = require('../model')
 
 const filesDir = __dirname + '/../data/list/'
 
-function save(filePath, fileName, District) {
+function save(filePath, District) {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
       const feature = JSON.parse(data)
@@ -23,7 +23,7 @@ function save(filePath, fileName, District) {
   })
 }
 
-async function populate() {
+async function populate(filesDir) {
   const db = await createDb()
   const District = await createModel()
 
@@ -31,9 +31,9 @@ async function populate() {
 
   const funcs = []
   fileList.forEach(file => {
-    funcs.push(save(filesDir + file, file, District))
+    funcs.push(save(filesDir + file, District))
   })
-  Promise.all(funcs)
+  return Promise.all(funcs)
     .then(res => {
       console.log('All saved!')
       db.close()
@@ -48,4 +48,4 @@ async function populate() {
     })
 }
 
-populate()
+module.exports = populate
