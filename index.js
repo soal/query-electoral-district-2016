@@ -3,6 +3,7 @@ const errors = require('restify-errors');
 const createDb = require('./db')
 const createModel = require('./model')
 const isInPolygon = require('@turf/boolean-point-in-polygon').default
+const APP_PORT = require('./config').APP_PORT
 
 async function nativeSearch(model, point, res, next) {
   try {
@@ -79,7 +80,7 @@ async function init() {
   server.use(restify.plugins.queryParser())
   server.get('/district', getDistrict)
   server.head('/district', getDistrict)
-  server.listen(8080, function() {
+  server.listen(APP_PORT, function() {
     console.log('%s listening at %s', server.name, server.url)
   })
 }
