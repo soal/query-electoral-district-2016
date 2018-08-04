@@ -39,7 +39,14 @@ function checkPaths(filePath, listDirPath, convertedPath) {
 }
 
 async function init() {
-  const filePath = resolve(process.argv[2]) || __dirname + '/districts_full.geojson'
+  if (!process.argv[2]) {
+    console.error(`
+      Please provide path to data file:\n
+      node createDb [path-to-file]
+    `)
+    process.exit(1)
+  }
+  const filePath = resolve(process.argv[2])
   const convertedPath = __dirname + '/districts_full_converted.geojson'
   const listDirPath = __dirname + '/data_splitted/'
 
