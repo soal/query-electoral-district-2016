@@ -3,9 +3,10 @@ const featureEach = require('@turf/meta').featureEach
 
 function save(feature, listDirPath) {
   return new Promise((resolve, reject) => {
+    const stringified = JSON.stringify(feature).replace(/180.00000000000003/g, '180')
     fs.writeFile(
       listDirPath + feature.properties.wiki_name.trim() + '.geojson',
-      JSON.stringify(feature),
+      stringified,
       err => {
         if (err) {
           reject(err)
@@ -17,6 +18,7 @@ function save(feature, listDirPath) {
 }
 
 function split(filePath, listDirPath) {
+  console.log('Splitting features in separate files...')
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
       if (err) {
@@ -31,15 +33,13 @@ function split(filePath, listDirPath) {
       })
       return Promise.all(funcs)
         .then(res => {
-          console.log('All saved!')
+          console.log('Features splitted.')
           resolve()
-          // process.exit(0)
         })
         .catch(err => {
           if (err) {
             console.error(err)
             reject(err)
-            // process.exit(1)
           }
         })
     })

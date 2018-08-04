@@ -2,12 +2,11 @@ const fs = require('fs')
 const createDb = require('../db')
 const createModel = require('../model')
 
-const filesDir = __dirname + '/../data/list/'
-
 function save(filePath, District) {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
       const feature = JSON.parse(data)
+      console.log(`Saving ${feature.properties.wiki_name}...`)
       const district = new District(feature)
       district.save(err => {
         if (err) {
@@ -17,13 +16,14 @@ function save(filePath, District) {
           console.error(err)
           reject(err)
         }
-        return resolve()
+        resolve()
       })
     })
   })
 }
 
 async function populate(filesDir) {
+  console.log('Populating database...')
   const db = await createDb()
   const District = await createModel()
 
@@ -35,9 +35,9 @@ async function populate(filesDir) {
   })
   return Promise.all(funcs)
     .then(res => {
-      console.log('All saved!')
+      console.log('Database populated')
       db.close()
-      process.exit(0)
+      return res
     })
     .catch(err => {
       if (err) {
