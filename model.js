@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const isInPolygon = require('@turf/boolean-point-in-polygon')
 
 async function createModel() {
   const districtShchema = mongoose.Schema({
@@ -23,12 +22,8 @@ async function createModel() {
   districtShchema.index({ 'geometry': '2dsphere' })
 
   districtShchema.methods.findDistrict = function(point) {
-    // console.log(this)
     const docs = this.model('District').find({ geometry: { $nearSphere: point, $maxDistance: 10000 } })
-    console.log(docs)
     return docs
-    // const docs = this.model('District').find({ geo: { $nearSphere: this.geo, $maxDistance: 0.01} }, cb);
-    // return isInPolygon(point, this.geometry)
   }
 
   console.log('District schema created')
